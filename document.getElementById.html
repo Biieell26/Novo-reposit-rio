@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Funcionários</title>
+</head>
+<body>
+
+    <form id="formulario">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+
+        <label for="idade">Idade:</label>
+        <input type="number" id="idade" name="idade" required><br>
+
+        <label for="cargo">Cargo:</label>
+        <input type="text" id="cargo" name="cargo" required><br>
+
+        <label for="departamento">Departamento:</label>
+        <input type="text" id="departamento" name="departamento"><br>
+
+        <label for="linguagem">Linguagem de Programação:</label>
+        <input type="text" id="linguagem" name="linguagem"><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <div id="mensagemErro" style="color: red;"></div>
+
+    <script>
+        class Funcionario {
+            constructor(nome, idade, cargo) {
+                this.nome = nome;
+                this.idade = idade;
+                this.cargo = cargo;
+            }
+
+            seApresentar() {
+                return `Olá, meu nome é ${this.nome}, tenho ${this.idade} anos e sou ${this.cargo}.`;
+            }
+
+            trabalhar() {
+                return `${this.nome} está trabalhando.`;
+            }
+        }
+
+        class Gerente extends Funcionario {
+            constructor(nome, idade, cargo, departamento) {
+                super(nome, idade, cargo);
+                this.departamento = departamento;
+            }
+
+            gerenciar() {
+                return `${this.nome} está gerenciando o departamento ${this.departamento}.`;
+            }
+        }
+
+        class Desenvolvedor extends Funcionario {
+            constructor(nome, idade, cargo, linguagem) {
+                super(nome, idade, cargo);
+                this.linguagem = linguagem;
+            }
+
+            programar() {
+                return `${this.nome} está programando em ${this.linguagem}.`;
+            }
+        }
+
+        function exibirErro(mensagem) {
+            const mensagemErro = document.getElementById('mensagemErro');
+            mensagemErro.textContent = mensagem;
+        }
+
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const cargo = document.getElementById('cargo').value;
+            const departamento = document.getElementById('departamento').value;
+            const linguagem = document.getElementById('linguagem').value;
+
+            try {
+                if (!nome || !idade || !cargo) {
+                    throw new Error('Todos os campos devem ser preenchidos.');
+                }
+
+                if (isNaN(idade) || idade <= 0) {
+                    throw new Error('A idade deve ser um número maior que zero.');
+                }
+
+                let funcionario;
+                if (cargo.toLowerCase() === 'gerente') {
+                    funcionario = new Gerente(nome, idade, cargo, departamento);
+                } else if (cargo.toLowerCase() === 'desenvolvedor') {
+                    funcionario = new Desenvolvedor(nome, idade, cargo, linguagem);
+                } else {
+                    throw new Error('Cargo inválido. Os cargos válidos são "gerente" e "desenvolvedor".');
+                }
+
+                // Exibir informações do funcionário na página
+                const mensagemErro = document.getElementById('mensagemErro');
+                mensagemErro.textContent = '';
+
+                const infoFuncionario = document.createElement('div');
+                infoFuncionario.textContent = funcionario.seApresentar();
+                document.body.appendChild(infoFuncionario);
+
+                const tarefaFuncionario = document.createElement('div');
+                if (funcionario instanceof Gerente) {
+                    tarefaFuncionario.textContent = funcionario.gerenciar();
+                } else {
+                    tarefaFuncionario.textContent = funcionario.programar();
+                }
+                document.body.appendChild(tarefaFuncionario);
+            } catch (error) {
+                exibirErro(error.message);
+            }
+        });
+    </script>
+</body>
+</html>

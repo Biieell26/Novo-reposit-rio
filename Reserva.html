@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserva de Viagem</title>
+</head>
+<body>
+
+<h2>Formulário de Reserva de Viagem</h2>
+
+<form action="#" method="post">
+  <fieldset>
+    <legend>Dados da Reserva</legend>
+    
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br><br>
+    
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+    
+    <label for="servicos">Serviços Desejados:</label><br>
+    <select id="servicos" name="servicos">
+      <option value="compra_passagens">Compra de Passagens</option>
+      <option value="reserva_hospedagem">Reserva de Hospedagem</option>
+      <option value="aluguel_veiculos">Aluguel de Veículos</option>
+    </select><br><br>
+    
+    <label>Forma de Pagamento:</label><br>
+    <input type="radio" id="cartao_credito" name="forma_pagamento" value="cartao_credito">
+    <label for="cartao_credito">Cartão de Crédito</label><br>
+    <input type="radio" id="boleto" name="forma_pagamento" value="boleto">
+    <label for="boleto">Boleto</label><br>
+    <input type="radio" id="pix" name="forma_pagamento" value="pix">
+    <label for="pix">PIX</label><br><br>
+    
+    <label for="prazo_pagamento">Prazo de Pagamento:</label><br>
+    <select id="prazo_pagamento" name="prazo_pagamento">
+      <option value="a_vista">À Vista</option>
+      <option value="cinco_vezes_sem_juros">Cinco Vezes Sem Juros</option>
+      <option value="dez_vezes_com_juros">Dez Vezes Com Juros</option>
+    </select><br><br>
+  </fieldset>
+  
+  <input type="submit" value="Enviar Reserva">
+</form>
+
+</body>
+</html>
